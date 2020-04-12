@@ -1,2 +1,6 @@
+Add build.sh
+
+Add format.sh
+
 See in source TODOs
 
