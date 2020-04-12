@@ -2,12 +2,8 @@
 
 #include <QTimer>
 
-#include <Poco/Net/ICMPClient.h>
-#include <Poco/Net/NetException.h>
-
-#include <cstdio>
-
 #include "main_window.hpp"
+#include "ping.hpp"
 
 namespace cic {
 namespace {
@@ -20,8 +16,13 @@ QString map_to_string(bool has_connection) {
 } // namespace
 
 main_window::main_window(QWidget* parent)
-  : QMainWindow(parent), label_(map_to_string(false)) {
+  : QMainWindow(parent), label_(nullptr) {
+  setFixedSize(800, 600);
+
   setWindowTitle("Check internet connection");
+
+  label_ = new QLabel(map_to_string(false), this);
+  label_->resize(800, 600);
 
   auto* timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &main_window::on_timer_timeout);
@@ -30,19 +31,8 @@ main_window::main_window(QWidget* parent)
 }
 
 void main_window::on_timer_timeout() {
-  try {
-    constexpr auto icmp_timeout = 300;
+  printf("on_timer_timeout\n");
 
-    const auto valid_reply_count = Poco::Net::ICMPClient::pingIPv4(
-      /* address */ "8.8.8.8",
-      /* repeat */ 1,
-      /* dataSize */ 48,
-      /* ttl */ 128,
-      /* timeout */ icmp_timeout);
-
-    label_.setText(map_to_string(valid_reply_count == 1));
-  } catch (const Poco::Net::NetException& ex) {
-    fprintf(stderr, "ex: %s\n", ex.what());
-  }
+  label_->setText(map_to_string(ping("8.8.8.8")));
 }
 } // namespace cic

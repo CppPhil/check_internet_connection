@@ -10,6 +10,6 @@ public:
 private:
   void on_timer_timeout();
 
-  QLabel label_;
+  QLabel* label_;
 };
 } // namespace cic

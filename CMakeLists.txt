@@ -22,13 +22,11 @@ set(CMAKE_AUTOUIC ON)
 find_package(Threads REQUIRED)
 find_package(Qt5 COMPONENTS Core Gui Widgets Network REQUIRED)
 
-add_subdirectory(external/poco)
-
 set(APP_NAME check_internet_connection_app)
 
-set(HEADERS include/main_window.hpp)
+set(HEADERS include/main_window.hpp include/ping.hpp)
 
-set(SOURCES src/main.cpp src/main_window.cpp)
+set(SOURCES src/main.cpp src/main_window.cpp src/ping.cpp)
 
 add_executable(${APP_NAME} ${HEADERS} ${SOURCES})
 
