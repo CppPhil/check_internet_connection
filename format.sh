@@ -31,16 +31,20 @@ format () {
   find -name '*.cpp' -o -name '*.hh' -o -name '*.hpp' -o -name '*.h' | xargs clang-format -i
   rm -f ./.clang-format
 
-  format_cmake $(find -name 'CMakeLists.txt')
+  file=$(find -name 'CMakeLists.txt')
+
+  if [[ ! -z $file ]]; then
+    format_cmake $file
+  fi
 }
 
 cd $DIR
 
-format_cmake ./CMakeLists.txt
+format_cmake $DIR/CMakeLists.txt
 
 # Format the source files.
-format include
-format src
+format $DIR/include
+format $DIR/src
 
 cd $PREV_DIR
 
