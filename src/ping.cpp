@@ -15,6 +15,7 @@
 #include "ping.hpp"
 
 namespace cic {
+namespace {
 #define PACKETSIZE 64
 struct packet {
   struct icmphdr hdr;
@@ -35,6 +36,7 @@ unsigned short checksum(const void* b, int len) {
   result = ~sum;
   return result;
 }
+} // namespace
 
 bool ping(const char* address) {
   const auto pid = getpid();
