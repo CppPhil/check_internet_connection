@@ -32,15 +32,8 @@ set(SOURCES src/main.cpp src/main_window.cpp)
 
 add_executable(${APP_NAME} ${HEADERS} ${SOURCES})
 
-target_link_libraries(
-  ${APP_NAME}
-  PUBLIC Threads::Threads
-         Qt5::Core
-         Qt5::Gui
-         Qt5::Widgets
-         Qt5::Network
-         Poco::Foundation
-         Poco::Net)
+target_link_libraries(${APP_NAME} PUBLIC Threads::Threads Qt5::Core Qt5::Gui
+                                         Qt5::Widgets Qt5::Network)
 
 target_include_directories(
   ${APP_NAME} PUBLIC ${check_internet_connection_SOURCE_DIR}/include)
