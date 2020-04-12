@@ -31,8 +31,6 @@ main_window::main_window(QWidget* parent)
 }
 
 void main_window::on_timer_timeout() {
-  printf("on_timer_timeout\n");
-
   label_->setText(map_to_string(ping("8.8.8.8")));
 }
 } // namespace cic
